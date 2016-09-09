@@ -66,8 +66,21 @@ $(document).ready(function(){
 		var button =$(e.relatedTarget);
 		var id = button.data('whatever');
 
-		var modal=$(this);
-		modal.find('#id').val(id);
+		$.getJSON('api/deposits?id='+id, function(r){
+			var tab;
+			var cont=1;
+			$.each(r, function(i,d){
+				tab+='<tr>';
+					tab+='<td>'+cont+'</td>';
+					cont++;
+					tab+='<td>'+d.amount+'</td>';
+					tab+='<td>'+d.start_date+'</td>';
+					tab+='<td>'+d.notes+'</td>'
+				tab+='/<tr>';
+			});
+			$('#tabId').append(tab);
+		});
+		
 	});
 	$('#modal-cst-info').on('show.bs.modal', function(e){
 		var button =$(e.relatedTarget);

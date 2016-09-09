@@ -406,7 +406,7 @@
                         <h3 class="modal-title">Historial de Pagos</h3>
                     </div>
                     <div class="modal-body">
-                        <table class="table">
+                        <table class="table" id="tabId">
                             <thead>
                                 <th>#</th>
                                 <th>Pago</th>
