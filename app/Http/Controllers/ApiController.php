@@ -36,18 +36,47 @@ class ApiController extends Controller
     	return response()->json($customer);
     }*/
     public function bills($id, $c){
-	if($c==1){
-		$bill=DB::table('bills')
-					->select('start_date', 'amount_temp')
-					->where('id', $id)
-					->orderBy('id', 'asc')
-					->limit(1)
-					->get();
-		return $bill;
+    	if($c==1){
+    		$bill=DB::table('bills')
+    					->select('start_date', 'amount_temp')
+    					->where('id', $id)
+    					->orderBy('id', 'asc')
+    					->limit(1)
+    					->get();
+    		return $bill;
 
-	}else{
-		return false;
-	}
-}
+    	}else{
+    		return false;
+    	}
+    }
+
+    public function info(Request $request){
+        $id=$request->input('id');
+        $customer=DB::table('customers')
+                        ->where('id', $id)
+                        ->select('staff_id','name', 'first_name', 'last_name', 'city', 'address', 'state', 'zip_code')
+                        ->get();
+        foreach ($customer as $x) {
+            $x->staff=$this->staffInfo($x->staff_id);
+           // $x->endorsment=$this->endorsmentInfo($id);
+        }
+        return response()->json($customer);
+    }
+
+    public function staffInfo($id){
+        $staff=DB::table('users')
+                    ->where('id', $id)
+                    ->select('name', 'first_name', 'last_name', 'city', 'address', 'state', 'zip_code')
+                    ->get();
+        return $staff;
+    }
+
+    public function endorsmentInfo($id){
+        $endorsment=DB::table('endorsments')
+                            ->where('customer_id', $id)
+                            ->select('name', 'first_name', 'last_name', 'city', 'address', 'state', 'zip_code')
+                            ->get();
+        return $endorsment;
+    }
 }
 

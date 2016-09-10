@@ -19,7 +19,7 @@ Route::get('/user', function (Request $request) {
 Route::resource('customer', 'CustomerController');
 Route::get('todo', 'ApiController@getAllCustomers');
 Route::get('deposits', 'depositController@getDeposits');
-
+Route::get('info', 'ApiController@info');
 Route::resource('bill', 'billController');
 
 Route::post('bill/{id}', 'billController@store');

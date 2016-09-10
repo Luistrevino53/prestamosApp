@@ -86,7 +86,8 @@ $(document).ready(function(){
 		var button =$(e.relatedTarget);
 		var id = button.data('whatever');
 
-		var modal=$(this);
-		modal.find('#id').val(id);
+		$.getJSON('api/info?id='+id, function(r){
+			
+		});
 	});
 });
